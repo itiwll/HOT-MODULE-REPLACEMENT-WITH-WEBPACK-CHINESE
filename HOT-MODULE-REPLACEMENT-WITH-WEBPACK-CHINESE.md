@@ -5,7 +5,7 @@
 [TOC]
 
 ##翻译说明
-原文：<https://webpack.github.io/docs/hot-module-replacement.html>  
+原文：<https://webpack.github.io/docs/hot-module-replacement-with-webpack.html>  
 _我只是想看懂它_
 
 ## 引言
