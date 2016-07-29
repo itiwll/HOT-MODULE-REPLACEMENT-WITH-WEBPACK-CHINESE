@@ -59,4 +59,11 @@ HMR 是一个可选特性，因此它只会影响包含了 HMR 代码的模块�
 
 ![Generated files](http://webpack.github.io/assets/HMR.svg)
 
-### What can I do with it?
+### 我能用它做什么?
+你可以在开发中用它替代 LiveReload 。 事实上 webpack-dev-server 支持一个热加载模式，它会在整个页面重新加载之前尝试通过 HMR 更新。你只需要添加`webpack/hot/dev-server`到入口以及使用`--hot`参数运行 dev-server 。 
+
+如果 HRM 更新失败`webpack/hot/dev/dev-server`会重新加载页面。如果你想[自己重新加载页面](https://github.com/webpack/webpack/issues/418)，你可以用`webpack/hot/only-dev-server`替换添加的入口。
+
+你也可以把它当作一个更新机制在生产中使用。你必须将 HMR 整合到你的应用代码里。
+
+一些加载器已经生成能够热更新的模块（例如：`style-loader`能够改变样式）。这种情况下你不需要做什么特别的事情。
