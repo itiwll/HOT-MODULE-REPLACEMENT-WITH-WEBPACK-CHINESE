@@ -93,3 +93,45 @@ HMR 是一个可选特性，因此它只会影响包含了 HMR 代码的模块�
 - 在第一次编译后，优化器不能优化模块的 ids 了。因此打包的大小受到了一点影响。
 - HMR 运行环境的代码会增加打包的大小。
 - 需要为生产中使用添加 HMR 处理器的测试。
+
+## 教程
+
+使用 webpack 代码热替换 你需要4样东西：  
+
+- records （`--records-path`，`recrodsPath: ...`）  
+- 全局启用代码热替换（`HotModuleReplacementPlugin`）
+- 在你的代码里使用`module.hot.accept`来热替换代码
+- 在你的代码里使用`module.hot.check`和`module.hot.apply`来管理代码热替换
+
+一个简单的实例：
+```css
+/* style */
+body {
+  background: red;
+}
+```
+```javascript
+/* entry.js */
+require("./style.css");
+document.write("<input type='text' />");
+```
+这样就可以通过 dev-server 使用代码热替换了。  
+```shell
+npm install webpack webpack-dev-server -g
+npm install webpack css-loader style-loader
+webpack-dev-server ./entry --hot --inline --module-bind "css=style\!css"
+```
+开发服务器在内存中提供了records，原文说开发的时候棒棒哒。  
+`--hot`参数开启代码热替换。
+>它添加了 HotModuleReplacementPlugin 。务必使用`--hot`参数，或者在`webpack.config.js`中使用 HotModuleReplacementPlugin ，但是不要两者同时使用，同时使用的话 HMR 插件会被添加两次，扰乱了
+系统。
+
+`webpack/hot/devserver`内有专门针对 dev-server 的管理代码，通过参数`--inline`自动添加。（你不必添加到你的 `webpack.config,js`）  
+`style-loader`模块已经包含热替换代码。  
+如果访问 <http://localhost:8080/bundle> 你将会看到一个红色的页面和一个输入框。输入一些文本到输入框，编辑`style.css`修改背景颜色。
+
+哇... 背景颜色更新了，但是没有刷新整个页面。  
+
+更多关于怎么写热替换（管理）代码： [hot module replacement](https://webpack.github.io/docs/hot-module-replacement.html)  
+
+无需代码的示例 [example-app](http://webpack.github.io/example-app/)。 (注意: 有点老了, 别看源码, 因为 HMR 的 API 有变动)
