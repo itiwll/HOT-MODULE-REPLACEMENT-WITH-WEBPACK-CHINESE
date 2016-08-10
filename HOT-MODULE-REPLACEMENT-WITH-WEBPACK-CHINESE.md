@@ -6,7 +6,8 @@
 
 ##翻译说明
 原文：<https://webpack.github.io/docs/hot-module-replacement-with-webpack.html>  
-_我只是想看懂它_
+如果有人看到翻译中的错误希望有人告诉我。  
+希望有人能帮我校对。  
 
 ## 引言
 模块热替换(HMR) 在一个应用运行的时候更改、添加或者移除模块__无需__重新加载页面。
